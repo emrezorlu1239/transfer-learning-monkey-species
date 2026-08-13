@@ -1,0 +1,16 @@
+{
+  "id": "emrezorlu1239/transfer-learning-10-monkey-species",
+  "title": "Transfer Learning 10 Monkey Species",
+  "code_file": "transfer_learning_monkey_species.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": false,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "dataset_sources": [
+    "slothkong/10-monkey-species"
+  ],
+  "competition_sources": [],
+  "kernel_sources": []
+}

@@ -69,6 +69,9 @@ All models were evaluated under identical experimental conditions:
 
 `	ext
 transfer-learning-monkey-species/
+├── notebooks/                          # Interactive Jupyter Notebooks
+│   ├── transfer_learning_monkey_species.ipynb  # Executed full 5-model benchmark walkthrough
+│   └── kernel-metadata.json            # Kaggle metadata configuration
 ├── data/                               # Dataset directory (excluded from git)
 │   ├── training/training/{n0...n9}
 │   ├── validation/validation/{n0...n9}
@@ -120,15 +123,21 @@ Download and extract the 10-Monkey-Species dataset via the Kaggle CLI:
 kaggle datasets download -d slothkong/10-monkey-species -p data --unzip
 `
 
-### 3. Training an Individual Model
-You can train any of the supported architectures via src/train.py:
+### 3. Interactive Jupyter Notebook
+You can run the full benchmark interactively with all visualizations embedded:
+
+`ash
+jupyter notebook notebooks/transfer_learning_monkey_species.ipynb
+`
+
+### 4. Modular CLI Training
+To train an individual architecture:
 
 `ash
 python src/train.py --model resnet18 --epochs 10 --batch_size 32
 python src/train.py --model efficientnet_b7 --epochs 10 --batch_size 8
 `
 
-### 4. Running the Full Benchmark
 To run all 5 models sequentially and generate benchmark artifacts:
 
 `ash
@@ -138,8 +147,9 @@ python compare_models.py
 
 ---
 
-## 📜 Dataset Reference & License
+## 📜 Dataset & Kaggle Notebook References
 
+* **Kaggle Notebook:** [Transfer Learning 10 Monkey Species on Kaggle](https://www.kaggle.com/code/emrezorlu1239/transfer-learning-10-monkey-species)
 * **Dataset:** [10 Monkey Species Dataset on Kaggle](https://www.kaggle.com/datasets/slothkong/10-monkey-species)
 * **Dataset Creator:** SlothKong
 * **License:** Public Domain / Creative Commons (CC0)
