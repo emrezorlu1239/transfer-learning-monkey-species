@@ -21,3 +21,6 @@ data/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Kaggle CLI/notebook scratch outputs
+kaggle_output/
