@@ -1,4 +1,4 @@
-﻿# Deep Learning Architecture Comparison & Transfer Learning Benchmark
+# Deep Learning Architecture Comparison & Transfer Learning Benchmark
 
 A comprehensive benchmarking project evaluating **5 distinct Computer Vision architectures** (1 custom baseline trained from scratch vs. 4 feature-extractor transfer learning models) on the [10-Monkey-Species Dataset](https://www.kaggle.com/datasets/slothkong/10-monkey-species).
 
