@@ -68,7 +68,7 @@ All models were evaluated under identical experimental conditions:
 ## 📁 Repository Structure
 
 `	ext
-transfer-learning-cats-dogs/
+transfer-learning-monkey-species/
 ├── data/                               # Dataset directory (excluded from git)
 │   ├── training/training/{n0...n9}
 │   ├── validation/validation/{n0...n9}
