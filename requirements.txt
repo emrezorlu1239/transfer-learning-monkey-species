@@ -1,0 +1,36 @@
+﻿# PyTorch with CUDA 12.8 (Recommended for NVIDIA RTX 50-series Blackwell / sm_120)
+# Install via: pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128
+--extra-index-url https://download.pytorch.org/whl/cu128
+torch==2.11.0+cu128
+torchvision==0.26.0+cu128
+
+# Data & Visualizations
+matplotlib==3.11.1
+pandas==3.0.5
+scikit-learn==1.9.0
+scipy==1.17.1
+seaborn==0.13.2
+pillow==12.2.0
+numpy==2.4.4
+
+# Core dependencies
+contourpy==1.3.3
+cycler==0.12.1
+filelock==3.29.0
+fonttools==4.63.0
+fsspec==2026.4.0
+Jinja2==3.1.6
+joblib==1.5.3
+kiwisolver==1.5.0
+MarkupSafe==3.0.3
+mpmath==1.3.0
+narwhals==2.24.0
+networkx==3.6.1
+packaging==26.3
+pyparsing==3.3.2
+python-dateutil==2.9.0.post0
+six==1.17.0
+sympy==1.14.0
+threadpoolctl==3.6.0
+typing_extensions==4.15.0
+tzdata==2026.3

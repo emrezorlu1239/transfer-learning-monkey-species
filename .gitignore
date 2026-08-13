@@ -1,0 +1,23 @@
+﻿# Python environment & cache
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.class
+*.ipynb_checkpoints
+
+# Datasets
+data/
+*.zip
+*.tar.gz
+
+# Model checkpoints and large weight files
+*.pth
+*.pt
+*.onnx
+*.bin
+
+# OS specific files
+.DS_Store
+Thumbs.db
+desktop.ini
