@@ -15,6 +15,13 @@ All models were evaluated under identical experimental conditions:
 * **Loss Function:** Cross-Entropy Loss
 * **Hardware Acceleration:** NVIDIA GeForce RTX 5060 Laptop GPU (Blackwell Architecture, Compute Capability 12.0) with PyTorch AMP (Automatic Mixed Precision)
 
+> **Note on reproducibility:** The results below are the executed outputs of the canonical
+> notebook (`notebooks/transfer_learning_monkey_species.ipynb`), mirrored into `results/`.
+> Because the DataLoader shuffle order is not seed-locked, re-running the benchmark (e.g. via
+> the CLI pipeline `python src/run_all.py` or on Kaggle) may produce marginally different
+> values (e.g. ±0.4% accuracy); the notebook also reports training time for the training loop
+> only, excluding model construction.
+
 ---
 
 ## 🏗️ Evaluated Architectures
@@ -35,11 +42,11 @@ All models were evaluated under identical experimental conditions:
 
 | Model | Test Accuracy (%) | Test Loss | Training Time (s) | Total Parameters | Trainable Parameters | Frozen Parameters |
 |---|---|---|---|---|---|---|
-| **TinyVGG** *(Scratch Baseline)* | **58.09%** | 1.1565 | 199.86s | 48,378 | 48,378 (100%) | 0 |
-| **ResNet-18** *(Pretrained)* | **97.06%** | 0.1337 | 216.71s | 11,181,642 | 5,130 (0.05%) | 11,176,512 |
-| **EfficientNet-B0** *(Pretrained)* | **97.43%** | 0.1431 | 238.10s | 4,020,358 | 12,810 (0.32%) | 4,007,548 |
-| **EfficientNet-B7** *(Pretrained)* | **100.00%** | 0.0425 | 544.79s | 63,812,570 | 25,610 (0.04%) | 63,786,960 |
-| **MobileNetV3-Small** *(Pretrained)* | **96.69%** | 0.1503 | 246.36s | 1,528,106 | 10,250 (0.67%) | 1,517,856 |
+| **TinyVGG** *(Scratch Baseline)* | **58.09%** | 1.8172 | 131.79s | 48,378 | 48,378 (100%) | 0 |
+| **ResNet-18** *(Pretrained)* | **97.06%** | 0.1337 | 159.08s | 11,181,642 | 5,130 (0.05%) | 11,176,512 |
+| **EfficientNet-B0** *(Pretrained)* | **97.06%** | 0.1428 | 179.78s | 4,020,358 | 12,810 (0.32%) | 4,007,548 |
+| **EfficientNet-B7** *(Pretrained)* | **100.00%** | 0.0408 | 496.34s | 63,812,570 | 25,610 (0.04%) | 63,786,960 |
+| **MobileNetV3-Small** *(Pretrained)* | **96.69%** | 0.1503 | 167.43s | 1,528,106 | 10,250 (0.67%) | 1,517,856 |
 
 ### 📈 Comparative Visualizations
 
@@ -54,20 +61,20 @@ All models were evaluated under identical experimental conditions:
    * In contrast, all four pretrained models reached **over 96.6% accuracy within just 1 to 2 epochs**, demonstrating that ImageNet feature priors transfer seamlessly to specialized visual domains.
 
 2. **Highest Overall Accuracy:**
-   * **EfficientNet-B7** attained **100.00% validation accuracy** (Test Loss: 0.0425). Its 600×600 high-resolution feature maps capture fine-grained primate textural characteristics that smaller resolution models might overlook.
+   * **EfficientNet-B7** attained **100.00% validation accuracy** (Test Loss: 0.0408). Its 600×600 high-resolution feature maps capture fine-grained primate textural characteristics that smaller resolution models might overlook.
 
 3. **Optimal Efficiency Sweet Spot:**
-   * **EfficientNet-B0** delivered **97.43% accuracy** with only 4.02M parameters and 238 seconds of training time, outperforming ResNet-18 while utilizing less than 40% of its parameters.
+   * **EfficientNet-B0** delivered **97.06% accuracy** with only 4.02M parameters and ~180 seconds of training time, outperforming ResNet-18 while utilizing less than 40% of its parameters.
    * **MobileNetV3-Small** achieved **96.69% accuracy** with merely **1.53M total parameters** (and only 10,250 trainable parameters in the classifier head), making it the prime candidate for edge and resource-constrained inference.
 
 4. **Throughput vs. Memory Trade-Off:**
-   * Training time scaled with input resolution and depth: 224×224 models (ResNet-18, EffNet-B0, MobileNetV3) required ~215–246 seconds, whereas the 600×600 EfficientNet-B7 required 544 seconds.
+   * Training time scaled with input resolution and depth: 224×224 models (ResNet-18, EffNet-B0, MobileNetV3) required ~159–180 seconds, whereas the 600×600 EfficientNet-B7 required ~496 seconds.
 
 ---
 
 ## 📁 Repository Structure
 
-`	ext
+```text
 transfer-learning-monkey-species/
 ├── notebooks/                          # Interactive Jupyter Notebooks
 │   ├── transfer_learning_monkey_species.ipynb  # Executed full 5-model benchmark walkthrough
@@ -95,55 +102,76 @@ transfer-learning-monkey-species/
 ├── requirements.txt                    # Exact pinned dependencies
 ├── .gitignore
 └── README.md
-`
+```
 
 ---
 
 ## 🚀 Getting Started
 
 ### 1. Prerequisites & GPU Environment
-This project requires Python 3.10+ and a CUDA-compatible GPU. For modern **NVIDIA RTX 50-series (Blackwell / sm_120)** or RTX 40-series cards, install the PyTorch CUDA 12.8 wheel:
 
-`ash
+This project requires Python 3.10+ and a CUDA-compatible GPU. `requirements.txt` already pins
+the PyTorch CUDA 12.8 build (`torch==2.11.0+cu128`) for modern **NVIDIA RTX 50-series
+(Blackwell / sm_120)** or RTX 40-series cards.
+
+```bash
 # Create and activate virtual environment
 python -m venv .venv
 .\.venv\Scripts\activate
 
-# Install PyTorch with CUDA 12.8 support
-pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128
-
-# Install project dependencies
+# Install project dependencies (including PyTorch CUDA 12.8)
 pip install -r requirements.txt
-`
+```
+
+> If you prefer to install PyTorch explicitly (or need CUDA 12.8 wheels directly):
+> `pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128`
 
 ### 2. Dataset Download
+
 Download and extract the 10-Monkey-Species dataset via the Kaggle CLI:
 
-`ash
+```bash
 kaggle datasets download -d slothkong/10-monkey-species -p data --unzip
-`
+```
 
 ### 3. Interactive Jupyter Notebook
+
 You can run the full benchmark interactively with all visualizations embedded:
 
-`ash
+```bash
 jupyter notebook notebooks/transfer_learning_monkey_species.ipynb
-`
+```
 
 ### 4. Modular CLI Training
+
 To train an individual architecture:
 
-`ash
+```bash
 python src/train.py --model resnet18 --epochs 10 --batch_size 32
 python src/train.py --model efficientnet_b7 --epochs 10 --batch_size 8
-`
+```
 
 To run all 5 models sequentially and generate benchmark artifacts:
 
-`ash
+```bash
 python src/run_all.py --epochs 10
 python compare_models.py
-`
+```
+
+### 5. Running on Kaggle
+
+The notebook is fully self-contained and can be pushed directly to Kaggle (see `notebooks/kernel-metadata.json`):
+
+```bash
+kaggle kernels push -p notebooks
+```
+
+* **Internet access** is required (enabled in the kernel metadata) to download the pretrained weights.
+* Kaggle's default `GPU` slot is often a **Tesla P100 (sm_60)**, which the preinstalled
+  PyTorch 2.10.0+cu128 does not support. The notebook detects this and automatically
+  reinstalls a compatible cu126 PyTorch build before importing torch. Selecting a **T4** or
+  **L4** GPU in the Kaggle notebook settings avoids this one-time reinstall.
+* Results are displayed inline in the notebook; persist CSV/PNG artifacts to `/kaggle/working` if you want them downloadable from the kernel "Output" tab.
 
 ---
 

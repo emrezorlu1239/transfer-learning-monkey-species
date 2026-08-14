@@ -4,7 +4,7 @@
     "total_params": 1528106,
     "trainable_params": 10250,
     "frozen_params": 1517856,
-    "training_time_seconds": 246.36,
+    "training_time_seconds": 167.43,
     "final_train_loss": 0.1149,
     "final_train_accuracy": 98.72,
     "final_test_loss": 0.1503,
