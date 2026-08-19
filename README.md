@@ -180,4 +180,4 @@ kaggle kernels push -p notebooks
 * **Kaggle Notebook:** [Transfer Learning 10 Monkey Species on Kaggle](https://www.kaggle.com/code/emrezorlu1239/transfer-learning-10-monkey-species)
 * **Dataset:** [10 Monkey Species Dataset on Kaggle](https://www.kaggle.com/datasets/slothkong/10-monkey-species)
 * **Dataset Creator:** SlothKong
-* **License:** Public Domain / Creative Commons (CC0)
+* **License:** Public Domain / Creative Commons (CC0) 
